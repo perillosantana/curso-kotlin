@@ -6,5 +6,6 @@ data class ClientView (
     val id: Long?,
     val name: String,
     val email: String,
-    val createDate: LocalDateTime
+    val createIn: LocalDateTime,
+    val lastInteractionIn: LocalDateTime
 )

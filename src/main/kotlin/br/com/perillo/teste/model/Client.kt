@@ -10,6 +10,6 @@ data class Client(
     val id: Long? = null,
     var name: String,
     var email: String,
-    @Column(name = "create_date")
-    val createDate: LocalDateTime = LocalDateTime.now()
+    val createdIn: LocalDateTime = LocalDateTime.now(),
+    val lastInteractionIn: LocalDateTime = LocalDateTime.now()
 )

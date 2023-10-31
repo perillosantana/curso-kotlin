@@ -11,7 +11,8 @@ class ClientViewMapper: Mapper<Client, ClientView> {
             id = t.id,
             name = t.name,
             email = t.email,
-            createDate = t.createDate
+            createIn = t.createdIn,
+            lastInteractionIn = t.lastInteractionIn
         )
     }
 }

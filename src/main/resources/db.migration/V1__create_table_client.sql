@@ -2,7 +2,8 @@ CREATE TABLE client (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    create_date TIMESTAMP DEFAULT NOW()
+    createdIn TIMESTAMP DEFAULT NOW(),
+    lastInteractionIn TIMESTAMP DEFAULT NOW()
 );
 
 INSERT INTO client (name, email) VALUES ('PERILLO', 'PERILLO@GMAIL.COM');
