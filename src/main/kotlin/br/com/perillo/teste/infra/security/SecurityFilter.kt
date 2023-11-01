@@ -1,7 +1,6 @@
 package br.com.perillo.teste.infra.security
 
 import br.com.perillo.teste.repository.UserRepository
-import br.com.perillo.teste.service.TokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
@@ -14,17 +13,18 @@ import java.io.IOException
 
 
 @Component
-class SecurityFilter : OncePerRequestFilter() {
-    private lateinit var tokenService: TokenService
-    private lateinit var userRepository: UserRepository
-
+class SecurityFilter(
+    private var tokenService: TokenService,
+    private var userRepository: UserRepository
+) : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val token = recoverToken(request)
+
         if (token != null) {
             val login = tokenService.validateToken(token)
             val user = userRepository.findByLogin(login)
-            val authentication = UsernamePasswordAuthenticationToken(user, null, user?.authorities)
+            val authentication = UsernamePasswordAuthenticationToken(user, login, user?.authorities)
             SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain.doFilter(request, response)
